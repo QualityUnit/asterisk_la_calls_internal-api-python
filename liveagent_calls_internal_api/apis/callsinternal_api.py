@@ -214,7 +214,7 @@ class CallsinternalApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def call_transfer(self, to_number, **kwargs):
+    def call_transfer(self, call_id, to_number, **kwargs):
         """
         Transfer call to different number
         
@@ -225,17 +225,18 @@ class CallsinternalApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.call_transfer(to_number, callback=callback_function)
+        >>> thread = api.call_transfer(call_id, to_number, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
+        :param str call_id:  (required)
         :param str to_number: to number (required)
         :return: OkResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['to_number']
+        all_params = ['call_id', 'to_number']
         all_params.append('callback')
 
         params = locals()
@@ -248,12 +249,17 @@ class CallsinternalApi(object):
             params[key] = val
         del params['kwargs']
 
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `call_transfer`")
         # verify the required parameter 'to_number' is set
         if ('to_number' not in params) or (params['to_number'] is None):
             raise ValueError("Missing the required parameter `to_number` when calling `call_transfer`")
 
         resource_path = '/call/{callId}/_transfer'.replace('{format}', 'json')
         path_params = {}
+        if 'call_id' in params:
+            path_params['callId'] = params['call_id']
 
         query_params = {}
 
