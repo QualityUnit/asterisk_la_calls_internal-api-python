@@ -7,6 +7,7 @@ from .models.ok_response import OkResponse
 
 # import apis into sdk package
 from .apis.callsinternal_api import CallsinternalApi
+from .apis.sounds_api import SoundsApi
 
 # import ApiClient
 from .api_client import ApiClient
