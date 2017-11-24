@@ -4,10 +4,56 @@ All URIs are relative to *http://127.0.0.1:8080/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**call_cancel_create**](CallsinternalApi.md#call_cancel_create) | **POST** /call/_cancelStart | Cancel outgoing call (before the agent initiated it on external device)
 [**call_create**](CallsinternalApi.md#call_create) | **POST** /call/_start | Originate new call
 [**call_status**](CallsinternalApi.md#call_status) | **GET** /call/{callId}/_status | Return the status of call
 [**call_transfer**](CallsinternalApi.md#call_transfer) | **POST** /call/{callId}/_transfer | Transfer call to different number
 
+
+# **call_cancel_create**
+> OkResponse call_cancel_create(call_id)
+
+Cancel outgoing call (before the agent initiated it on external device)
+
+### Example 
+```python
+import time
+import liveagent_calls_internal_api
+from liveagent_calls_internal_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = liveagent_calls_internal_api.CallsinternalApi()
+call_id = 'call_id_example' # str | 
+
+try: 
+    # Cancel outgoing call (before the agent initiated it on external device)
+    api_response = api_instance.call_cancel_create(call_id)
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling CallsinternalApi->call_cancel_create: %s\n" % e
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **call_id** | **str**|  | 
+
+### Return type
+
+[**OkResponse**](OkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **call_create**
 > Call call_create(to_number, agent_number, trunk, ticket_id=ticket_id)
