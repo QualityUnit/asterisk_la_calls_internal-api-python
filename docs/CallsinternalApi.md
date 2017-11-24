@@ -56,7 +56,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **call_create**
-> Call call_create(to_number, agent_number, trunk, ticket_id=ticket_id)
+> Call call_create(to_number, trunk, device_type, device_number, device_params, ticket_id=ticket_id)
 
 Originate new call
 
@@ -70,13 +70,15 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = liveagent_calls_internal_api.CallsinternalApi()
 to_number = 'to_number_example' # str | callee number
-agent_number = 'agent_number_example' # str | agent number
 trunk = 'trunk_example' # str | trunk id
+device_type = 'device_type_example' # str | A - LiveAgent phone app, S - SIP phone
+device_number = 'device_number_example' # str | device number
+device_params = 'device_params_example' # str | device params
 ticket_id = 'ticket_id_example' # str | ticket id or code (optional)
 
 try: 
     # Originate new call
-    api_response = api_instance.call_create(to_number, agent_number, trunk, ticket_id=ticket_id)
+    api_response = api_instance.call_create(to_number, trunk, device_type, device_number, device_params, ticket_id=ticket_id)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling CallsinternalApi->call_create: %s\n" % e
@@ -87,8 +89,10 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **to_number** | **str**| callee number | 
- **agent_number** | **str**| agent number | 
  **trunk** | **str**| trunk id | 
+ **device_type** | **str**| A - LiveAgent phone app, S - SIP phone | 
+ **device_number** | **str**| device number | 
+ **device_params** | **str**| device params | 
  **ticket_id** | **str**| ticket id or code | [optional] 
 
 ### Return type

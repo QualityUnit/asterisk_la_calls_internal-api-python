@@ -122,7 +122,7 @@ class CallsinternalApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def call_create(self, to_number, agent_number, trunk, **kwargs):
+    def call_create(self, to_number, trunk, device_type, device_number, device_params, **kwargs):
         """
         Originate new call
         
@@ -133,20 +133,22 @@ class CallsinternalApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.call_create(to_number, agent_number, trunk, callback=callback_function)
+        >>> thread = api.call_create(to_number, trunk, device_type, device_number, device_params, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str to_number: callee number (required)
-        :param str agent_number: agent number (required)
         :param str trunk: trunk id (required)
+        :param str device_type: A - LiveAgent phone app, S - SIP phone (required)
+        :param str device_number: device number (required)
+        :param str device_params: device params (required)
         :param str ticket_id: ticket id or code
         :return: Call
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['to_number', 'agent_number', 'trunk', 'ticket_id']
+        all_params = ['to_number', 'trunk', 'device_type', 'device_number', 'device_params', 'ticket_id']
         all_params.append('callback')
 
         params = locals()
@@ -162,12 +164,18 @@ class CallsinternalApi(object):
         # verify the required parameter 'to_number' is set
         if ('to_number' not in params) or (params['to_number'] is None):
             raise ValueError("Missing the required parameter `to_number` when calling `call_create`")
-        # verify the required parameter 'agent_number' is set
-        if ('agent_number' not in params) or (params['agent_number'] is None):
-            raise ValueError("Missing the required parameter `agent_number` when calling `call_create`")
         # verify the required parameter 'trunk' is set
         if ('trunk' not in params) or (params['trunk'] is None):
             raise ValueError("Missing the required parameter `trunk` when calling `call_create`")
+        # verify the required parameter 'device_type' is set
+        if ('device_type' not in params) or (params['device_type'] is None):
+            raise ValueError("Missing the required parameter `device_type` when calling `call_create`")
+        # verify the required parameter 'device_number' is set
+        if ('device_number' not in params) or (params['device_number'] is None):
+            raise ValueError("Missing the required parameter `device_number` when calling `call_create`")
+        # verify the required parameter 'device_params' is set
+        if ('device_params' not in params) or (params['device_params'] is None):
+            raise ValueError("Missing the required parameter `device_params` when calling `call_create`")
 
         resource_path = '/call/_start'.replace('{format}', 'json')
         path_params = {}
@@ -180,10 +188,14 @@ class CallsinternalApi(object):
         local_var_files = {}
         if 'to_number' in params:
             form_params.append(('to_number', params['to_number']))
-        if 'agent_number' in params:
-            form_params.append(('agent_number', params['agent_number']))
         if 'trunk' in params:
             form_params.append(('trunk', params['trunk']))
+        if 'device_type' in params:
+            form_params.append(('device_type', params['device_type']))
+        if 'device_number' in params:
+            form_params.append(('device_number', params['device_number']))
+        if 'device_params' in params:
+            form_params.append(('device_params', params['device_params']))
         if 'ticket_id' in params:
             form_params.append(('ticketId', params['ticket_id']))
 
