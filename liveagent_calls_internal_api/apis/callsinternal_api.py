@@ -122,7 +122,7 @@ class CallsinternalApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def call_create(self, to_number, trunk, device_type, device_number, device_params, **kwargs):
+    def call_create(self, to_number, device_type, device_number, device_params, **kwargs):
         """
         Originate new call
         
@@ -133,22 +133,22 @@ class CallsinternalApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.call_create(to_number, trunk, device_type, device_number, device_params, callback=callback_function)
+        >>> thread = api.call_create(to_number, device_type, device_number, device_params, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str to_number: callee number (required)
-        :param str trunk: trunk id (required)
         :param str device_type: A - LiveAgent phone app, S - SIP phone (required)
         :param str device_number: device number (required)
         :param str device_params: device params (required)
+        :param str trunk: trunk id
         :param str ticket_id: ticket id or code
         :return: Call
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['to_number', 'trunk', 'device_type', 'device_number', 'device_params', 'ticket_id']
+        all_params = ['to_number', 'device_type', 'device_number', 'device_params', 'trunk', 'ticket_id']
         all_params.append('callback')
 
         params = locals()
@@ -164,9 +164,6 @@ class CallsinternalApi(object):
         # verify the required parameter 'to_number' is set
         if ('to_number' not in params) or (params['to_number'] is None):
             raise ValueError("Missing the required parameter `to_number` when calling `call_create`")
-        # verify the required parameter 'trunk' is set
-        if ('trunk' not in params) or (params['trunk'] is None):
-            raise ValueError("Missing the required parameter `trunk` when calling `call_create`")
         # verify the required parameter 'device_type' is set
         if ('device_type' not in params) or (params['device_type'] is None):
             raise ValueError("Missing the required parameter `device_type` when calling `call_create`")
