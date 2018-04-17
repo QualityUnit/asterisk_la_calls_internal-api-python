@@ -45,9 +45,9 @@ class CallsApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def call_create(self, to_number, agent_number, trunk, **kwargs):
+    def dtmf_channel(self, call_id, channel_id, dtmf, **kwargs):
         """
-        Originate new call
+        Send provided DTMF to channel
         
 
         This method makes a synchronous HTTP request by default. To make an
@@ -56,20 +56,19 @@ class CallsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.call_create(to_number, agent_number, trunk, callback=callback_function)
+        >>> thread = api.dtmf_channel(call_id, channel_id, dtmf, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str to_number: callee number (required)
-        :param str agent_number: agent number (required)
-        :param str trunk: trunk id (required)
-        :param str ticket_id: ticket id or code
-        :return: Call
+        :param str call_id:  (required)
+        :param str channel_id:  (required)
+        :param str dtmf: DTMF To send (required)
+        :return: OkResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['to_number', 'agent_number', 'trunk', 'ticket_id']
+        all_params = ['call_id', 'channel_id', 'dtmf']
         all_params.append('callback')
 
         params = locals()
@@ -77,38 +76,36 @@ class CallsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method call_create" % key
+                    " to method dtmf_channel" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        # verify the required parameter 'to_number' is set
-        if ('to_number' not in params) or (params['to_number'] is None):
-            raise ValueError("Missing the required parameter `to_number` when calling `call_create`")
-        # verify the required parameter 'agent_number' is set
-        if ('agent_number' not in params) or (params['agent_number'] is None):
-            raise ValueError("Missing the required parameter `agent_number` when calling `call_create`")
-        # verify the required parameter 'trunk' is set
-        if ('trunk' not in params) or (params['trunk'] is None):
-            raise ValueError("Missing the required parameter `trunk` when calling `call_create`")
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `dtmf_channel`")
+        # verify the required parameter 'channel_id' is set
+        if ('channel_id' not in params) or (params['channel_id'] is None):
+            raise ValueError("Missing the required parameter `channel_id` when calling `dtmf_channel`")
+        # verify the required parameter 'dtmf' is set
+        if ('dtmf' not in params) or (params['dtmf'] is None):
+            raise ValueError("Missing the required parameter `dtmf` when calling `dtmf_channel`")
 
-        resource_path = '/call/_start'.replace('{format}', 'json')
+        resource_path = '/call/{callId}/channels/{channelId}/_dtmf'.replace('{format}', 'json')
         path_params = {}
+        if 'call_id' in params:
+            path_params['callId'] = params['call_id']
+        if 'channel_id' in params:
+            path_params['channelId'] = params['channel_id']
 
         query_params = {}
+        if 'dtmf' in params:
+            query_params['dtmf'] = params['dtmf']
 
         header_params = {}
 
         form_params = []
         local_var_files = {}
-        if 'to_number' in params:
-            form_params.append(('to_number', params['to_number']))
-        if 'agent_number' in params:
-            form_params.append(('agent_number', params['agent_number']))
-        if 'trunk' in params:
-            form_params.append(('trunk', params['trunk']))
-        if 'ticket_id' in params:
-            form_params.append(('ticketId', params['ticket_id']))
 
         body_params = None
 
@@ -132,14 +129,14 @@ class CallsApi(object):
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='Call',
+                                            response_type='OkResponse',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
 
-    def call_status(self, call_id, **kwargs):
+    def end_channel(self, call_id, channel_id, **kwargs):
         """
-        Return the status of call
+        End channel
         
 
         This method makes a synchronous HTTP request by default. To make an
@@ -148,17 +145,18 @@ class CallsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.call_status(call_id, callback=callback_function)
+        >>> thread = api.end_channel(call_id, channel_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str call_id:  (required)
-        :return: Call
+        :param str channel_id:  (required)
+        :return: OkResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['call_id']
+        all_params = ['call_id', 'channel_id']
         all_params.append('callback')
 
         params = locals()
@@ -166,19 +164,24 @@ class CallsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method call_status" % key
+                    " to method end_channel" % key
                 )
             params[key] = val
         del params['kwargs']
 
         # verify the required parameter 'call_id' is set
         if ('call_id' not in params) or (params['call_id'] is None):
-            raise ValueError("Missing the required parameter `call_id` when calling `call_status`")
+            raise ValueError("Missing the required parameter `call_id` when calling `end_channel`")
+        # verify the required parameter 'channel_id' is set
+        if ('channel_id' not in params) or (params['channel_id'] is None):
+            raise ValueError("Missing the required parameter `channel_id` when calling `end_channel`")
 
-        resource_path = '/call/{callId}/_status'.replace('{format}', 'json')
+        resource_path = '/call/{callId}/channels/{channelId}/_end'.replace('{format}', 'json')
         path_params = {}
         if 'call_id' in params:
             path_params['callId'] = params['call_id']
+        if 'channel_id' in params:
+            path_params['channelId'] = params['channel_id']
 
         query_params = {}
 
@@ -197,26 +200,26 @@ class CallsApi(object):
 
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.\
-            select_header_content_type([])
+            select_header_content_type(['application/x-www-form-urlencoded'])
 
         # Authentication setting
         auth_settings = []
 
-        response = self.api_client.call_api(resource_path, 'GET',
+        response = self.api_client.call_api(resource_path, 'POST',
                                             path_params,
                                             query_params,
                                             header_params,
                                             body=body_params,
                                             post_params=form_params,
                                             files=local_var_files,
-                                            response_type='Call',
+                                            response_type='OkResponse',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
 
-    def call_transfer(self, to_number, **kwargs):
+    def hold_channel(self, call_id, channel_id, **kwargs):
         """
-        Transfer call to different number
+        Hold channel
         
 
         This method makes a synchronous HTTP request by default. To make an
@@ -225,17 +228,18 @@ class CallsApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.call_transfer(to_number, callback=callback_function)
+        >>> thread = api.hold_channel(call_id, channel_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param str to_number: to number (required)
+        :param str call_id:  (required)
+        :param str channel_id:  (required)
         :return: OkResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['to_number']
+        all_params = ['call_id', 'channel_id']
         all_params.append('callback')
 
         params = locals()
@@ -243,17 +247,24 @@ class CallsApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method call_transfer" % key
+                    " to method hold_channel" % key
                 )
             params[key] = val
         del params['kwargs']
 
-        # verify the required parameter 'to_number' is set
-        if ('to_number' not in params) or (params['to_number'] is None):
-            raise ValueError("Missing the required parameter `to_number` when calling `call_transfer`")
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `hold_channel`")
+        # verify the required parameter 'channel_id' is set
+        if ('channel_id' not in params) or (params['channel_id'] is None):
+            raise ValueError("Missing the required parameter `channel_id` when calling `hold_channel`")
 
-        resource_path = '/call/{callId}/_transfer'.replace('{format}', 'json')
+        resource_path = '/call/{callId}/channels/{channelId}/_hold'.replace('{format}', 'json')
         path_params = {}
+        if 'call_id' in params:
+            path_params['callId'] = params['call_id']
+        if 'channel_id' in params:
+            path_params['channelId'] = params['channel_id']
 
         query_params = {}
 
@@ -261,8 +272,255 @@ class CallsApi(object):
 
         form_params = []
         local_var_files = {}
-        if 'to_number' in params:
-            form_params.append(('to_number', params['to_number']))
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/x-www-form-urlencoded'])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, 'POST',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='OkResponse',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def mute_channel(self, call_id, channel_id, **kwargs):
+        """
+        Mute channel
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.mute_channel(call_id, channel_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str call_id:  (required)
+        :param str channel_id:  (required)
+        :return: OkResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['call_id', 'channel_id']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method mute_channel" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `mute_channel`")
+        # verify the required parameter 'channel_id' is set
+        if ('channel_id' not in params) or (params['channel_id'] is None):
+            raise ValueError("Missing the required parameter `channel_id` when calling `mute_channel`")
+
+        resource_path = '/call/{callId}/channels/{channelId}/_mute'.replace('{format}', 'json')
+        path_params = {}
+        if 'call_id' in params:
+            path_params['callId'] = params['call_id']
+        if 'channel_id' in params:
+            path_params['channelId'] = params['channel_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/x-www-form-urlencoded'])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, 'POST',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='OkResponse',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def unhold_channel(self, call_id, channel_id, **kwargs):
+        """
+        Unhold channel
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.unhold_channel(call_id, channel_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str call_id:  (required)
+        :param str channel_id:  (required)
+        :return: OkResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['call_id', 'channel_id']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method unhold_channel" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `unhold_channel`")
+        # verify the required parameter 'channel_id' is set
+        if ('channel_id' not in params) or (params['channel_id'] is None):
+            raise ValueError("Missing the required parameter `channel_id` when calling `unhold_channel`")
+
+        resource_path = '/call/{callId}/channels/{channelId}/_unhold'.replace('{format}', 'json')
+        path_params = {}
+        if 'call_id' in params:
+            path_params['callId'] = params['call_id']
+        if 'channel_id' in params:
+            path_params['channelId'] = params['channel_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/x-www-form-urlencoded'])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, 'POST',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='OkResponse',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def unmute_channel(self, call_id, channel_id, **kwargs):
+        """
+        Unmute channel
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.unmute_channel(call_id, channel_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str call_id:  (required)
+        :param str channel_id:  (required)
+        :return: OkResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['call_id', 'channel_id']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method unmute_channel" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `unmute_channel`")
+        # verify the required parameter 'channel_id' is set
+        if ('channel_id' not in params) or (params['channel_id'] is None):
+            raise ValueError("Missing the required parameter `channel_id` when calling `unmute_channel`")
+
+        resource_path = '/call/{callId}/channels/{channelId}/_unmute'.replace('{format}', 'json')
+        path_params = {}
+        if 'call_id' in params:
+            path_params['callId'] = params['call_id']
+        if 'channel_id' in params:
+            path_params['channelId'] = params['channel_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
 
         body_params = None
 
