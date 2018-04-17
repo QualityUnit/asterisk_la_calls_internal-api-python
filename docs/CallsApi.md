@@ -4,15 +4,18 @@ All URIs are relative to *http://127.0.0.1:8080/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**call_create**](CallsApi.md#call_create) | **POST** /call/_start | Originate new call
-[**call_status**](CallsApi.md#call_status) | **GET** /call/{callId}/_status | Return the status of call
-[**call_transfer**](CallsApi.md#call_transfer) | **POST** /call/{callId}/_transfer | Transfer call to different number
+[**dtmf_channel**](CallsApi.md#dtmf_channel) | **POST** /call/{callId}/channels/{channelId}/_dtmf | Send provided DTMF to channel
+[**end_channel**](CallsApi.md#end_channel) | **POST** /call/{callId}/channels/{channelId}/_end | End channel
+[**hold_channel**](CallsApi.md#hold_channel) | **POST** /call/{callId}/channels/{channelId}/_hold | Hold channel
+[**mute_channel**](CallsApi.md#mute_channel) | **POST** /call/{callId}/channels/{channelId}/_mute | Mute channel
+[**unhold_channel**](CallsApi.md#unhold_channel) | **POST** /call/{callId}/channels/{channelId}/_unhold | Unhold channel
+[**unmute_channel**](CallsApi.md#unmute_channel) | **POST** /call/{callId}/channels/{channelId}/_unmute | Unmute channel
 
 
-# **call_create**
-> Call call_create(to_number, agent_number, trunk, ticket_id=ticket_id)
+# **dtmf_channel**
+> OkResponse dtmf_channel(call_id, channel_id, dtmf)
 
-Originate new call
+Send provided DTMF to channel
 
 ### Example 
 ```python
@@ -23,31 +26,29 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = liveagent_calls_internal_api.CallsApi()
-to_number = 'to_number_example' # str | callee number
-agent_number = 'agent_number_example' # str | agent number
-trunk = 'trunk_example' # str | trunk id
-ticket_id = 'ticket_id_example' # str | ticket id or code (optional)
+call_id = 'call_id_example' # str | 
+channel_id = 'channel_id_example' # str | 
+dtmf = 'dtmf_example' # str | DTMF To send
 
 try: 
-    # Originate new call
-    api_response = api_instance.call_create(to_number, agent_number, trunk, ticket_id=ticket_id)
+    # Send provided DTMF to channel
+    api_response = api_instance.dtmf_channel(call_id, channel_id, dtmf)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsApi->call_create: %s\n" % e
+    print "Exception when calling CallsApi->dtmf_channel: %s\n" % e
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **to_number** | **str**| callee number | 
- **agent_number** | **str**| agent number | 
- **trunk** | **str**| trunk id | 
- **ticket_id** | **str**| ticket id or code | [optional] 
+ **call_id** | **str**|  | 
+ **channel_id** | **str**|  | 
+ **dtmf** | **str**| DTMF To send | 
 
 ### Return type
 
-[**Call**](Call.md)
+[**OkResponse**](OkResponse.md)
 
 ### Authorization
 
@@ -60,10 +61,10 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **call_status**
-> Call call_status(call_id)
+# **end_channel**
+> OkResponse end_channel(call_id, channel_id)
 
-Return the status of call
+End channel
 
 ### Example 
 ```python
@@ -75,13 +76,14 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = liveagent_calls_internal_api.CallsApi()
 call_id = 'call_id_example' # str | 
+channel_id = 'channel_id_example' # str | 
 
 try: 
-    # Return the status of call
-    api_response = api_instance.call_status(call_id)
+    # End channel
+    api_response = api_instance.end_channel(call_id, channel_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsApi->call_status: %s\n" % e
+    print "Exception when calling CallsApi->end_channel: %s\n" % e
 ```
 
 ### Parameters
@@ -89,10 +91,11 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **call_id** | **str**|  | 
+ **channel_id** | **str**|  | 
 
 ### Return type
 
-[**Call**](Call.md)
+[**OkResponse**](OkResponse.md)
 
 ### Authorization
 
@@ -100,15 +103,15 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **call_transfer**
-> OkResponse call_transfer(to_number)
+# **hold_channel**
+> OkResponse hold_channel(call_id, channel_id)
 
-Transfer call to different number
+Hold channel
 
 ### Example 
 ```python
@@ -119,21 +122,164 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = liveagent_calls_internal_api.CallsApi()
-to_number = 'to_number_example' # str | to number
+call_id = 'call_id_example' # str | 
+channel_id = 'channel_id_example' # str | 
 
 try: 
-    # Transfer call to different number
-    api_response = api_instance.call_transfer(to_number)
+    # Hold channel
+    api_response = api_instance.hold_channel(call_id, channel_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsApi->call_transfer: %s\n" % e
+    print "Exception when calling CallsApi->hold_channel: %s\n" % e
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **to_number** | **str**| to number | 
+ **call_id** | **str**|  | 
+ **channel_id** | **str**|  | 
+
+### Return type
+
+[**OkResponse**](OkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **mute_channel**
+> OkResponse mute_channel(call_id, channel_id)
+
+Mute channel
+
+### Example 
+```python
+import time
+import liveagent_calls_internal_api
+from liveagent_calls_internal_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = liveagent_calls_internal_api.CallsApi()
+call_id = 'call_id_example' # str | 
+channel_id = 'channel_id_example' # str | 
+
+try: 
+    # Mute channel
+    api_response = api_instance.mute_channel(call_id, channel_id)
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling CallsApi->mute_channel: %s\n" % e
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **call_id** | **str**|  | 
+ **channel_id** | **str**|  | 
+
+### Return type
+
+[**OkResponse**](OkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **unhold_channel**
+> OkResponse unhold_channel(call_id, channel_id)
+
+Unhold channel
+
+### Example 
+```python
+import time
+import liveagent_calls_internal_api
+from liveagent_calls_internal_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = liveagent_calls_internal_api.CallsApi()
+call_id = 'call_id_example' # str | 
+channel_id = 'channel_id_example' # str | 
+
+try: 
+    # Unhold channel
+    api_response = api_instance.unhold_channel(call_id, channel_id)
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling CallsApi->unhold_channel: %s\n" % e
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **call_id** | **str**|  | 
+ **channel_id** | **str**|  | 
+
+### Return type
+
+[**OkResponse**](OkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **unmute_channel**
+> OkResponse unmute_channel(call_id, channel_id)
+
+Unmute channel
+
+### Example 
+```python
+import time
+import liveagent_calls_internal_api
+from liveagent_calls_internal_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = liveagent_calls_internal_api.CallsApi()
+call_id = 'call_id_example' # str | 
+channel_id = 'channel_id_example' # str | 
+
+try: 
+    # Unmute channel
+    api_response = api_instance.unmute_channel(call_id, channel_id)
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling CallsApi->unmute_channel: %s\n" % e
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **call_id** | **str**|  | 
+ **channel_id** | **str**|  | 
 
 ### Return type
 
