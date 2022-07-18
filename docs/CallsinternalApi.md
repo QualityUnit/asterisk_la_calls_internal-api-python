@@ -162,7 +162,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **call_transfer**
-> OkResponse call_transfer(call_id, to_number)
+> OkResponse call_transfer(call_id, to_number, first_channel_id)
 
 Transfer call to different number
 
@@ -177,10 +177,11 @@ from pprint import pprint
 api_instance = liveagent_calls_internal_api.CallsinternalApi()
 call_id = 'call_id_example' # str | 
 to_number = 'to_number_example' # str | to number
+first_channel_id = 'first_channel_id_example' # str | first channel ID
 
 try: 
     # Transfer call to different number
-    api_response = api_instance.call_transfer(call_id, to_number)
+    api_response = api_instance.call_transfer(call_id, to_number, first_channel_id)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling CallsinternalApi->call_transfer: %s\n" % e
@@ -192,6 +193,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **call_id** | **str**|  | 
  **to_number** | **str**| to number | 
+ **first_channel_id** | **str**| first channel ID | 
 
 ### Return type
 
