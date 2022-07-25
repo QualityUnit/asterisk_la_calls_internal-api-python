@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**call_create**](CallsinternalApi.md#call_create) | **POST** /call/_start | Originate new call
 [**call_status**](CallsinternalApi.md#call_status) | **GET** /call/{callId}/_status | Return the status of call
 [**call_transfer**](CallsinternalApi.md#call_transfer) | **POST** /call/{callId}/_transfer | Transfer call to different number
+[**call_transfer_refer**](CallsinternalApi.md#call_transfer_refer) | **POST** /call/{callId}/_transfer_refer | Transfer call to different number by refer
 [**dtmf_channel**](CallsinternalApi.md#dtmf_channel) | **POST** /call/{callId}/channels/{channelId}/_dtmf | Send provided DTMF to channel
 [**end_channel**](CallsinternalApi.md#end_channel) | **POST** /call/{callId}/channels/{channelId}/_end | End channel
 [**hold_channel**](CallsinternalApi.md#hold_channel) | **POST** /call/{callId}/channels/{channelId}/_hold | Hold channel
@@ -185,6 +186,55 @@ try:
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling CallsinternalApi->call_transfer: %s\n" % e
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **call_id** | **str**|  | 
+ **to_number** | **str**| to number | 
+ **first_channel_id** | **str**| first channel ID | 
+
+### Return type
+
+[**OkResponse**](OkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **call_transfer_refer**
+> OkResponse call_transfer_refer(call_id, to_number, first_channel_id)
+
+Transfer call to different number by refer
+
+### Example 
+```python
+import time
+import liveagent_calls_internal_api
+from liveagent_calls_internal_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = liveagent_calls_internal_api.CallsinternalApi()
+call_id = 'call_id_example' # str | 
+to_number = 'to_number_example' # str | to number
+first_channel_id = 'first_channel_id_example' # str | first channel ID
+
+try: 
+    # Transfer call to different number by refer
+    api_response = api_instance.call_transfer_refer(call_id, to_number, first_channel_id)
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling CallsinternalApi->call_transfer_refer: %s\n" % e
 ```
 
 ### Parameters
