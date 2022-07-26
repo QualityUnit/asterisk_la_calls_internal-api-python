@@ -300,7 +300,7 @@ class CallsinternalApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def call_transfer(self, call_id, to_number, **kwargs):
+    def call_transfer(self, call_id, to_number, first_channel_id, **kwargs):
         """
         Transfer call to different number
         
@@ -311,18 +311,19 @@ class CallsinternalApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.call_transfer(call_id, to_number, callback=callback_function)
+        >>> thread = api.call_transfer(call_id, to_number, first_channel_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str call_id:  (required)
         :param str to_number: to number (required)
+        :param str first_channel_id: first channel ID (required)
         :return: OkResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['call_id', 'to_number']
+        all_params = ['call_id', 'to_number', 'first_channel_id']
         all_params.append('callback')
 
         params = locals()
@@ -341,6 +342,9 @@ class CallsinternalApi(object):
         # verify the required parameter 'to_number' is set
         if ('to_number' not in params) or (params['to_number'] is None):
             raise ValueError("Missing the required parameter `to_number` when calling `call_transfer`")
+        # verify the required parameter 'first_channel_id' is set
+        if ('first_channel_id' not in params) or (params['first_channel_id'] is None):
+            raise ValueError("Missing the required parameter `first_channel_id` when calling `call_transfer`")
 
         resource_path = '/call/{callId}/_transfer'.replace('{format}', 'json')
         path_params = {}
@@ -355,6 +359,97 @@ class CallsinternalApi(object):
         local_var_files = {}
         if 'to_number' in params:
             form_params.append(('to_number', params['to_number']))
+        if 'first_channel_id' in params:
+            form_params.append(('first_channel_id', params['first_channel_id']))
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/x-www-form-urlencoded'])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, 'POST',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='OkResponse',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def call_transfer_refer(self, call_id, to_number, first_channel_id, **kwargs):
+        """
+        Transfer call to different number by refer
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.call_transfer_refer(call_id, to_number, first_channel_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str call_id:  (required)
+        :param str to_number: to number (required)
+        :param str first_channel_id: first channel ID (required)
+        :return: OkResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['call_id', 'to_number', 'first_channel_id']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method call_transfer_refer" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `call_transfer_refer`")
+        # verify the required parameter 'to_number' is set
+        if ('to_number' not in params) or (params['to_number'] is None):
+            raise ValueError("Missing the required parameter `to_number` when calling `call_transfer_refer`")
+        # verify the required parameter 'first_channel_id' is set
+        if ('first_channel_id' not in params) or (params['first_channel_id'] is None):
+            raise ValueError("Missing the required parameter `first_channel_id` when calling `call_transfer_refer`")
+
+        resource_path = '/call/{callId}/_transfer_refer'.replace('{format}', 'json')
+        path_params = {}
+        if 'call_id' in params:
+            path_params['callId'] = params['call_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'to_number' in params:
+            form_params.append(('to_number', params['to_number']))
+        if 'first_channel_id' in params:
+            form_params.append(('first_channel_id', params['first_channel_id']))
 
         body_params = None
 
