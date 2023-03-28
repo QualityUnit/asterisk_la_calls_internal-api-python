@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**end_channel**](CallsinternalApi.md#end_channel) | **POST** /call/{callId}/channels/{channelId}/_end | End channel
 [**hold_channel**](CallsinternalApi.md#hold_channel) | **POST** /call/{callId}/channels/{channelId}/_hold | Hold channel
 [**mute_channel**](CallsinternalApi.md#mute_channel) | **POST** /call/{callId}/channels/{channelId}/_mute | Mute channel
+[**start_callback**](CallsinternalApi.md#start_callback) | **POST** /call/_start_callback | Start to process callback call
 [**unhold_channel**](CallsinternalApi.md#unhold_channel) | **POST** /call/{callId}/channels/{channelId}/_unhold | Unhold channel
 [**unmute_channel**](CallsinternalApi.md#unmute_channel) | **POST** /call/{callId}/channels/{channelId}/_unmute | Unmute channel
 
@@ -77,7 +78,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = liveagent_calls_internal_api.CallsinternalApi()
 to_number = 'to_number_example' # str | callee number
-device_type = 'device_type_example' # str | A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN
+device_type = 'device_type_example' # str | A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN, W - Web browser device
 device_number = 'device_number_example' # str | device number
 device_params = 'device_params_example' # str | device params
 trunk = 'trunk_example' # str | trunk id (optional)
@@ -97,7 +98,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **to_number** | **str**| callee number | 
- **device_type** | **str**| A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN | 
+ **device_type** | **str**| A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN, W - Web browser device | 
  **device_number** | **str**| device number | 
  **device_params** | **str**| device params | 
  **trunk** | **str**| trunk id | [optional] 
@@ -448,6 +449,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **start_callback**
+> OkResponse start_callback(callback_data)
+
+Start to process callback call
+
+### Example 
+```python
+import time
+import liveagent_calls_internal_api
+from liveagent_calls_internal_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = liveagent_calls_internal_api.CallsinternalApi()
+callback_data = liveagent_calls_internal_api.CallbackData() # CallbackData | 
+
+try: 
+    # Start to process callback call
+    api_response = api_instance.start_callback(callback_data)
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling CallsinternalApi->start_callback: %s\n" % e
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **callback_data** | [**CallbackData**](CallbackData.md)|  | 
+
+### Return type
+
+[**OkResponse**](OkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
