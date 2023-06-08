@@ -138,17 +138,18 @@ class CallsinternalApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str to_number: callee number (required)
-        :param str device_type: A - LiveAgent phone app, S - SIP phone (required)
+        :param str device_type: A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN (required)
         :param str device_number: device number (required)
         :param str device_params: device params (required)
         :param str trunk: trunk id
         :param str ticket_id: ticket id or code
+        :param str device_trunk_id: device trunk id (for dialing PSTN phone device)
         :return: Call
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['to_number', 'device_type', 'device_number', 'device_params', 'trunk', 'ticket_id']
+        all_params = ['to_number', 'device_type', 'device_number', 'device_params', 'trunk', 'ticket_id', 'device_trunk_id']
         all_params.append('callback')
 
         params = locals()
@@ -195,6 +196,8 @@ class CallsinternalApi(object):
             form_params.append(('device_params', params['device_params']))
         if 'ticket_id' in params:
             form_params.append(('ticketId', params['ticket_id']))
+        if 'device_trunk_id' in params:
+            form_params.append(('device_trunk_id', params['device_trunk_id']))
 
         body_params = None
 
