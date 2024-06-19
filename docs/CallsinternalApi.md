@@ -77,7 +77,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = liveagent_calls_internal_api.CallsinternalApi()
 to_number = 'to_number_example' # str | callee number
-device_type = 'device_type_example' # str | A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN
+device_type = 'device_type_example' # str | A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN, W - Web browser device
 device_number = 'device_number_example' # str | device number
 device_params = 'device_params_example' # str | device params
 trunk = 'trunk_example' # str | trunk id (optional)
@@ -97,7 +97,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **to_number** | **str**| callee number | 
- **device_type** | **str**| A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN | 
+ **device_type** | **str**| A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN, W - Web browser device | 
  **device_number** | **str**| device number | 
  **device_params** | **str**| device params | 
  **trunk** | **str**| trunk id | [optional] 

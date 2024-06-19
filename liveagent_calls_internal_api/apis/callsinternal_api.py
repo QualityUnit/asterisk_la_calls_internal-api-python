@@ -138,7 +138,7 @@ class CallsinternalApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str to_number: callee number (required)
-        :param str device_type: A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN (required)
+        :param str device_type: A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN, W - Web browser device (required)
         :param str device_number: device number (required)
         :param str device_params: device params (required)
         :param str trunk: trunk id
