@@ -144,12 +144,13 @@ class CallsinternalApi(object):
         :param str trunk: trunk id
         :param str ticket_id: ticket id or code
         :param str device_trunk_id: device trunk id (for dialing PSTN phone device)
+        :param str call_id: call id
         :return: Call
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['to_number', 'device_type', 'device_number', 'device_params', 'trunk', 'ticket_id', 'device_trunk_id']
+        all_params = ['to_number', 'device_type', 'device_number', 'device_params', 'trunk', 'ticket_id', 'device_trunk_id', 'call_id']
         all_params.append('callback')
 
         params = locals()
@@ -198,6 +199,8 @@ class CallsinternalApi(object):
             form_params.append(('ticketId', params['ticket_id']))
         if 'device_trunk_id' in params:
             form_params.append(('device_trunk_id', params['device_trunk_id']))
+        if 'call_id' in params:
+            form_params.append(('call_id', params['call_id']))
 
         body_params = None
 
