@@ -63,7 +63,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **call_create**
-> Call call_create(to_number, device_type, device_number, device_params, trunk=trunk, ticket_id=ticket_id, device_trunk_id=device_trunk_id)
+> Call call_create(to_number, device_type, device_number, device_params, trunk=trunk, ticket_id=ticket_id, device_trunk_id=device_trunk_id, call_id=call_id)
 
 Originate new call
 
@@ -77,16 +77,17 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = liveagent_calls_internal_api.CallsinternalApi()
 to_number = 'to_number_example' # str | callee number
-device_type = 'device_type_example' # str | A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN
+device_type = 'device_type_example' # str | A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN, W - Web browser device
 device_number = 'device_number_example' # str | device number
 device_params = 'device_params_example' # str | device params
 trunk = 'trunk_example' # str | trunk id (optional)
 ticket_id = 'ticket_id_example' # str | ticket id or code (optional)
 device_trunk_id = 'device_trunk_id_example' # str | device trunk id (for dialing PSTN phone device) (optional)
+call_id = 'call_id_example' # str | call id (optional)
 
 try: 
     # Originate new call
-    api_response = api_instance.call_create(to_number, device_type, device_number, device_params, trunk=trunk, ticket_id=ticket_id, device_trunk_id=device_trunk_id)
+    api_response = api_instance.call_create(to_number, device_type, device_number, device_params, trunk=trunk, ticket_id=ticket_id, device_trunk_id=device_trunk_id, call_id=call_id)
     pprint(api_response)
 except ApiException as e:
     print "Exception when calling CallsinternalApi->call_create: %s\n" % e
@@ -97,12 +98,13 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **to_number** | **str**| callee number | 
- **device_type** | **str**| A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN | 
+ **device_type** | **str**| A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN, W - Web browser device | 
  **device_number** | **str**| device number | 
  **device_params** | **str**| device params | 
  **trunk** | **str**| trunk id | [optional] 
  **ticket_id** | **str**| ticket id or code | [optional] 
  **device_trunk_id** | **str**| device trunk id (for dialing PSTN phone device) | [optional] 
+ **call_id** | **str**| call id | [optional] 
 
 ### Return type
 
