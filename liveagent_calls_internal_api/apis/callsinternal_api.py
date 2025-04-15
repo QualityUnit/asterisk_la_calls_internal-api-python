@@ -122,7 +122,7 @@ class CallsinternalApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def call_create(self, to_number, device_type, device_number, device_params, **kwargs):
+    def call_create(self, to_number, device_type, device_number, device_params, call_id, **kwargs):
         """
         Originate new call
         
@@ -133,24 +133,24 @@ class CallsinternalApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.call_create(to_number, device_type, device_number, device_params, callback=callback_function)
+        >>> thread = api.call_create(to_number, device_type, device_number, device_params, call_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str to_number: callee number (required)
-        :param str device_type: A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN, W - Web browser device (required)
+        :param str device_type: A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN, W - Web browser device, R - SIP provider extension (required)
         :param str device_number: device number (required)
         :param str device_params: device params (required)
+        :param str call_id: call id (required)
         :param str trunk: trunk id
         :param str ticket_id: ticket id or code
         :param str device_trunk_id: device trunk id (for dialing PSTN phone device)
-        :param str call_id: call id
         :return: Call
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['to_number', 'device_type', 'device_number', 'device_params', 'trunk', 'ticket_id', 'device_trunk_id', 'call_id']
+        all_params = ['to_number', 'device_type', 'device_number', 'device_params', 'call_id', 'trunk', 'ticket_id', 'device_trunk_id']
         all_params.append('callback')
 
         params = locals()
@@ -175,6 +175,9 @@ class CallsinternalApi(object):
         # verify the required parameter 'device_params' is set
         if ('device_params' not in params) or (params['device_params'] is None):
             raise ValueError("Missing the required parameter `device_params` when calling `call_create`")
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `call_create`")
 
         resource_path = '/call/_start'.replace('{format}', 'json')
         path_params = {}
@@ -195,12 +198,12 @@ class CallsinternalApi(object):
             form_params.append(('device_number', params['device_number']))
         if 'device_params' in params:
             form_params.append(('device_params', params['device_params']))
+        if 'call_id' in params:
+            form_params.append(('call_id', params['call_id']))
         if 'ticket_id' in params:
             form_params.append(('ticketId', params['ticket_id']))
         if 'device_trunk_id' in params:
             form_params.append(('device_trunk_id', params['device_trunk_id']))
-        if 'call_id' in params:
-            form_params.append(('call_id', params['call_id']))
 
         body_params = None
 
@@ -225,6 +228,184 @@ class CallsinternalApi(object):
                                             post_params=form_params,
                                             files=local_var_files,
                                             response_type='Call',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def call_redirect(self, call_id, to_number, first_channel_id, **kwargs):
+        """
+        Redirect call (Complete attended transfer)
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.call_redirect(call_id, to_number, first_channel_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str call_id:  (required)
+        :param str to_number: to number (required)
+        :param str first_channel_id: first channel ID (required)
+        :return: OkResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['call_id', 'to_number', 'first_channel_id']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method call_redirect" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `call_redirect`")
+        # verify the required parameter 'to_number' is set
+        if ('to_number' not in params) or (params['to_number'] is None):
+            raise ValueError("Missing the required parameter `to_number` when calling `call_redirect`")
+        # verify the required parameter 'first_channel_id' is set
+        if ('first_channel_id' not in params) or (params['first_channel_id'] is None):
+            raise ValueError("Missing the required parameter `first_channel_id` when calling `call_redirect`")
+
+        resource_path = '/call/{callId}/_redirect'.replace('{format}', 'json')
+        path_params = {}
+        if 'call_id' in params:
+            path_params['callId'] = params['call_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'to_number' in params:
+            form_params.append(('to_number', params['to_number']))
+        if 'first_channel_id' in params:
+            form_params.append(('first_channel_id', params['first_channel_id']))
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/x-www-form-urlencoded'])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, 'POST',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='OkResponse',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def call_redirect_refer(self, call_id, to_number, first_channel_id, **kwargs):
+        """
+        Redirect call by refer (Complete attended transfer)
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.call_redirect_refer(call_id, to_number, first_channel_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str call_id:  (required)
+        :param str to_number: to number (required)
+        :param str first_channel_id: first channel ID (required)
+        :return: OkResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['call_id', 'to_number', 'first_channel_id']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method call_redirect_refer" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `call_redirect_refer`")
+        # verify the required parameter 'to_number' is set
+        if ('to_number' not in params) or (params['to_number'] is None):
+            raise ValueError("Missing the required parameter `to_number` when calling `call_redirect_refer`")
+        # verify the required parameter 'first_channel_id' is set
+        if ('first_channel_id' not in params) or (params['first_channel_id'] is None):
+            raise ValueError("Missing the required parameter `first_channel_id` when calling `call_redirect_refer`")
+
+        resource_path = '/call/{callId}/_redirect_refer'.replace('{format}', 'json')
+        path_params = {}
+        if 'call_id' in params:
+            path_params['callId'] = params['call_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'to_number' in params:
+            form_params.append(('to_number', params['to_number']))
+        if 'first_channel_id' in params:
+            form_params.append(('first_channel_id', params['first_channel_id']))
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/x-www-form-urlencoded'])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, 'POST',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='OkResponse',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response
@@ -306,9 +487,9 @@ class CallsinternalApi(object):
                                             callback=params.get('callback'))
         return response
 
-    def call_transfer(self, call_id, to_number, first_channel_id, **kwargs):
+    def call_transfer(self, call_id, channel_id, to_number, **kwargs):
         """
-        Transfer call to different number
+        Blind transfer call to a different number
         
 
         This method makes a synchronous HTTP request by default. To make an
@@ -317,19 +498,19 @@ class CallsinternalApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.call_transfer(call_id, to_number, first_channel_id, callback=callback_function)
+        >>> thread = api.call_transfer(call_id, channel_id, to_number, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str call_id:  (required)
-        :param str to_number: to number (required)
-        :param str first_channel_id: first channel ID (required)
+        :param str channel_id: channel ID (required)
+        :param str to_number: transfer to number (required)
         :return: OkResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['call_id', 'to_number', 'first_channel_id']
+        all_params = ['call_id', 'channel_id', 'to_number']
         all_params.append('callback')
 
         params = locals()
@@ -345,12 +526,12 @@ class CallsinternalApi(object):
         # verify the required parameter 'call_id' is set
         if ('call_id' not in params) or (params['call_id'] is None):
             raise ValueError("Missing the required parameter `call_id` when calling `call_transfer`")
+        # verify the required parameter 'channel_id' is set
+        if ('channel_id' not in params) or (params['channel_id'] is None):
+            raise ValueError("Missing the required parameter `channel_id` when calling `call_transfer`")
         # verify the required parameter 'to_number' is set
         if ('to_number' not in params) or (params['to_number'] is None):
             raise ValueError("Missing the required parameter `to_number` when calling `call_transfer`")
-        # verify the required parameter 'first_channel_id' is set
-        if ('first_channel_id' not in params) or (params['first_channel_id'] is None):
-            raise ValueError("Missing the required parameter `first_channel_id` when calling `call_transfer`")
 
         resource_path = '/call/{callId}/_transfer'.replace('{format}', 'json')
         path_params = {}
@@ -363,99 +544,10 @@ class CallsinternalApi(object):
 
         form_params = []
         local_var_files = {}
+        if 'channel_id' in params:
+            form_params.append(('channel_id', params['channel_id']))
         if 'to_number' in params:
             form_params.append(('to_number', params['to_number']))
-        if 'first_channel_id' in params:
-            form_params.append(('first_channel_id', params['first_channel_id']))
-
-        body_params = None
-
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['application/json'])
-        if not header_params['Accept']:
-            del header_params['Accept']
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/x-www-form-urlencoded'])
-
-        # Authentication setting
-        auth_settings = []
-
-        response = self.api_client.call_api(resource_path, 'POST',
-                                            path_params,
-                                            query_params,
-                                            header_params,
-                                            body=body_params,
-                                            post_params=form_params,
-                                            files=local_var_files,
-                                            response_type='OkResponse',
-                                            auth_settings=auth_settings,
-                                            callback=params.get('callback'))
-        return response
-
-    def call_transfer_refer(self, call_id, to_number, first_channel_id, **kwargs):
-        """
-        Transfer call to different number by refer
-        
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.call_transfer_refer(call_id, to_number, first_channel_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str call_id:  (required)
-        :param str to_number: to number (required)
-        :param str first_channel_id: first channel ID (required)
-        :return: OkResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['call_id', 'to_number', 'first_channel_id']
-        all_params.append('callback')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method call_transfer_refer" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-        # verify the required parameter 'call_id' is set
-        if ('call_id' not in params) or (params['call_id'] is None):
-            raise ValueError("Missing the required parameter `call_id` when calling `call_transfer_refer`")
-        # verify the required parameter 'to_number' is set
-        if ('to_number' not in params) or (params['to_number'] is None):
-            raise ValueError("Missing the required parameter `to_number` when calling `call_transfer_refer`")
-        # verify the required parameter 'first_channel_id' is set
-        if ('first_channel_id' not in params) or (params['first_channel_id'] is None):
-            raise ValueError("Missing the required parameter `first_channel_id` when calling `call_transfer_refer`")
-
-        resource_path = '/call/{callId}/_transfer_refer'.replace('{format}', 'json')
-        path_params = {}
-        if 'call_id' in params:
-            path_params['callId'] = params['call_id']
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-        if 'to_number' in params:
-            form_params.append(('to_number', params['to_number']))
-        if 'first_channel_id' in params:
-            form_params.append(('first_channel_id', params['first_channel_id']))
 
         body_params = None
 
