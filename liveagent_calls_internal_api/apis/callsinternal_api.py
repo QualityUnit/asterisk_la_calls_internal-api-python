@@ -232,6 +232,95 @@ class CallsinternalApi(object):
                                             callback=params.get('callback'))
         return response
 
+    def call_listen(self, call_id, ticket_id, by_number, **kwargs):
+        """
+        Request call listening
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.call_listen(call_id, ticket_id, by_number, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str call_id: Call ID to listen (required)
+        :param str ticket_id: Ticket Id (required)
+        :param str by_number: Number that will listen the call (required)
+        :return: OkResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['call_id', 'ticket_id', 'by_number']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method call_listen" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `call_listen`")
+        # verify the required parameter 'ticket_id' is set
+        if ('ticket_id' not in params) or (params['ticket_id'] is None):
+            raise ValueError("Missing the required parameter `ticket_id` when calling `call_listen`")
+        # verify the required parameter 'by_number' is set
+        if ('by_number' not in params) or (params['by_number'] is None):
+            raise ValueError("Missing the required parameter `by_number` when calling `call_listen`")
+
+        resource_path = '/call/_listen'.replace('{format}', 'json')
+        path_params = {}
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'call_id' in params:
+            form_params.append(('call_id', params['call_id']))
+        if 'ticket_id' in params:
+            form_params.append(('ticket_id', params['ticket_id']))
+        if 'by_number' in params:
+            form_params.append(('by_number', params['by_number']))
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/x-www-form-urlencoded'])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, 'POST',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='OkResponse',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
     def call_redirect(self, call_id, to_number, first_channel_id, **kwargs):
         """
         Redirect call (Complete attended transfer)
@@ -483,6 +572,89 @@ class CallsinternalApi(object):
                                             post_params=form_params,
                                             files=local_var_files,
                                             response_type='Call',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
+    def call_stop_listen(self, call_id, by_number, **kwargs):
+        """
+        Stop call listening
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.call_stop_listen(call_id, by_number, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str call_id: Call ID to stop listening (required)
+        :param str by_number: Number that was listening the call (required)
+        :return: OkResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['call_id', 'by_number']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method call_stop_listen" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `call_stop_listen`")
+        # verify the required parameter 'by_number' is set
+        if ('by_number' not in params) or (params['by_number'] is None):
+            raise ValueError("Missing the required parameter `by_number` when calling `call_stop_listen`")
+
+        resource_path = '/call/_stopListen'.replace('{format}', 'json')
+        path_params = {}
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'call_id' in params:
+            form_params.append(('call_id', params['call_id']))
+        if 'by_number' in params:
+            form_params.append(('by_number', params['by_number']))
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/x-www-form-urlencoded'])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, 'POST',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='OkResponse',
                                             auth_settings=auth_settings,
                                             callback=params.get('callback'))
         return response

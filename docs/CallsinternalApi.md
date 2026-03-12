@@ -6,9 +6,11 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**call_cancel_create**](CallsinternalApi.md#call_cancel_create) | **POST** /call/_cancelStart | Cancel outgoing call (before the agent initiated it on external device)
 [**call_create**](CallsinternalApi.md#call_create) | **POST** /call/_start | Originate new call
+[**call_listen**](CallsinternalApi.md#call_listen) | **POST** /call/_listen | Request call listening
 [**call_redirect**](CallsinternalApi.md#call_redirect) | **POST** /call/{callId}/_redirect | Redirect call (Complete attended transfer)
 [**call_redirect_refer**](CallsinternalApi.md#call_redirect_refer) | **POST** /call/{callId}/_redirect_refer | Redirect call by refer (Complete attended transfer)
 [**call_status**](CallsinternalApi.md#call_status) | **GET** /call/{callId}/_status | Return the status of call
+[**call_stop_listen**](CallsinternalApi.md#call_stop_listen) | **POST** /call/_stopListen | Stop call listening
 [**call_transfer**](CallsinternalApi.md#call_transfer) | **POST** /call/{callId}/_transfer | Blind transfer call to a different number
 [**dtmf_channel**](CallsinternalApi.md#dtmf_channel) | **POST** /call/{callId}/channels/{channelId}/_dtmf | Send provided DTMF to channel
 [**end_channel**](CallsinternalApi.md#end_channel) | **POST** /call/{callId}/channels/{channelId}/_end | End channel
@@ -110,6 +112,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Call**](Call.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **call_listen**
+> OkResponse call_listen(call_id, ticket_id, by_number)
+
+Request call listening
+
+### Example 
+```python
+import time
+import liveagent_calls_internal_api
+from liveagent_calls_internal_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = liveagent_calls_internal_api.CallsinternalApi()
+call_id = 'call_id_example' # str | Call ID to listen
+ticket_id = 'ticket_id_example' # str | Ticket Id
+by_number = 'by_number_example' # str | Number that will listen the call
+
+try: 
+    # Request call listening
+    api_response = api_instance.call_listen(call_id, ticket_id, by_number)
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling CallsinternalApi->call_listen: %s\n" % e
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **call_id** | **str**| Call ID to listen | 
+ **ticket_id** | **str**| Ticket Id | 
+ **by_number** | **str**| Number that will listen the call | 
+
+### Return type
+
+[**OkResponse**](OkResponse.md)
 
 ### Authorization
 
@@ -261,6 +312,53 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **call_stop_listen**
+> OkResponse call_stop_listen(call_id, by_number)
+
+Stop call listening
+
+### Example 
+```python
+import time
+import liveagent_calls_internal_api
+from liveagent_calls_internal_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = liveagent_calls_internal_api.CallsinternalApi()
+call_id = 'call_id_example' # str | Call ID to stop listening
+by_number = 'by_number_example' # str | Number that was listening the call
+
+try: 
+    # Stop call listening
+    api_response = api_instance.call_stop_listen(call_id, by_number)
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling CallsinternalApi->call_stop_listen: %s\n" % e
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **call_id** | **str**| Call ID to stop listening | 
+ **by_number** | **str**| Number that was listening the call | 
+
+### Return type
+
+[**OkResponse**](OkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
