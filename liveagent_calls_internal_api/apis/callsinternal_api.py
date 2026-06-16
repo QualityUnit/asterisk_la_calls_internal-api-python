@@ -920,6 +920,89 @@ class CallsinternalApi(object):
                                             callback=params.get('callback'))
         return response
 
+    def get_recording(self, call_id, recording_id, **kwargs):
+        """
+        Download a call recording file
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.get_recording(call_id, recording_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str call_id:  (required)
+        :param str recording_id: The recording id (the asterisk-la file handle) (required)
+        :return: file
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['call_id', 'recording_id']
+        all_params.append('callback')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_recording" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        # verify the required parameter 'call_id' is set
+        if ('call_id' not in params) or (params['call_id'] is None):
+            raise ValueError("Missing the required parameter `call_id` when calling `get_recording`")
+        # verify the required parameter 'recording_id' is set
+        if ('recording_id' not in params) or (params['recording_id'] is None):
+            raise ValueError("Missing the required parameter `recording_id` when calling `get_recording`")
+
+        resource_path = '/call/{callId}/recordings/{recordingId}'.replace('{format}', 'json')
+        path_params = {}
+        if 'call_id' in params:
+            path_params['callId'] = params['call_id']
+        if 'recording_id' in params:
+            path_params['recordingId'] = params['recording_id']
+
+        query_params = {}
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['audio/mpeg'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type([])
+
+        # Authentication setting
+        auth_settings = []
+
+        response = self.api_client.call_api(resource_path, 'GET',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type='file',
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'))
+        return response
+
     def hold_channel(self, call_id, channel_id, **kwargs):
         """
         Hold channel

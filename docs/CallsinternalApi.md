@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**call_transfer**](CallsinternalApi.md#call_transfer) | **POST** /call/{callId}/_transfer | Blind transfer call to a different number
 [**dtmf_channel**](CallsinternalApi.md#dtmf_channel) | **POST** /call/{callId}/channels/{channelId}/_dtmf | Send provided DTMF to channel
 [**end_channel**](CallsinternalApi.md#end_channel) | **POST** /call/{callId}/channels/{channelId}/_end | End channel
+[**get_recording**](CallsinternalApi.md#get_recording) | **GET** /call/{callId}/recordings/{recordingId} | Download a call recording file
 [**hold_channel**](CallsinternalApi.md#hold_channel) | **POST** /call/{callId}/channels/{channelId}/_hold | Hold channel
 [**mute_channel**](CallsinternalApi.md#mute_channel) | **POST** /call/{callId}/channels/{channelId}/_mute | Mute channel
 [**unhold_channel**](CallsinternalApi.md#unhold_channel) | **POST** /call/{callId}/channels/{channelId}/_unhold | Unhold channel
@@ -505,6 +506,53 @@ No authorization required
 
  - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_recording**
+> file get_recording(call_id, recording_id)
+
+Download a call recording file
+
+### Example 
+```python
+import time
+import liveagent_calls_internal_api
+from liveagent_calls_internal_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = liveagent_calls_internal_api.CallsinternalApi()
+call_id = 'call_id_example' # str | 
+recording_id = 'recording_id_example' # str | The recording id (the asterisk-la file handle)
+
+try: 
+    # Download a call recording file
+    api_response = api_instance.get_recording(call_id, recording_id)
+    pprint(api_response)
+except ApiException as e:
+    print "Exception when calling CallsinternalApi->get_recording: %s\n" % e
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **call_id** | **str**|  | 
+ **recording_id** | **str**| The recording id (the asterisk-la file handle) | 
+
+### Return type
+
+[**file**](file.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: audio/mpeg
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
