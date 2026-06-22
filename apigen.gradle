@@ -1,0 +1,26 @@
+task cleanApi(type: Delete) {
+    delete 'docs', 'test'
+    delete fileTree(dir: 'liveagent_calls_internal_api')
+}
+
+task generateApi(type: JavaExec) {
+    dependsOn(cleanApi)
+    classpath = sourceSets.main.runtimeClasspath
+    main = "io.swagger.codegen.SwaggerCodegen"
+    args = [
+            'generate',
+            '-l', 'python',
+            '-i', "../LiveAgent/asterisk-la/server/swagger/calls_internal.yaml",
+            '-o', ".",
+            '-c', "./client.json"
+    ]
+}
+
+task getConfigOptions(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "io.swagger.codegen.SwaggerCodegen"
+    args = [
+            'config-help',
+            '-l', 'python'
+    ]
+}

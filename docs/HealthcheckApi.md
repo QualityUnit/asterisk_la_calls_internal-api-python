@@ -12,8 +12,9 @@ Method | HTTP request | Description
 
 Healthcheck
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
@@ -22,12 +23,12 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = liveagent_calls_internal_api.HealthcheckApi()
 
-try: 
+try:
     # Healthcheck
     api_response = api_instance.healthcheck()
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling HealthcheckApi->healthcheck: %s\n" % e
+    print("Exception when calling HealthcheckApi->healthcheck: %s\n" % e)
 ```
 
 ### Parameters
