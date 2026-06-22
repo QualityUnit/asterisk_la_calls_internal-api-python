@@ -1,24 +1,24 @@
-# liveagent_calls_internal_api.CallsinternalApi
+# liveagent_calls_internal_api.CallsInternalApi
 
 All URIs are relative to *http://127.0.0.1:8080/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**call_cancel_create**](CallsinternalApi.md#call_cancel_create) | **POST** /call/_cancelStart | Cancel outgoing call (before the agent initiated it on external device)
-[**call_create**](CallsinternalApi.md#call_create) | **POST** /call/_start | Originate new call
-[**call_listen**](CallsinternalApi.md#call_listen) | **POST** /call/_listen | Request call listening
-[**call_redirect**](CallsinternalApi.md#call_redirect) | **POST** /call/{callId}/_redirect | Redirect call (Complete attended transfer)
-[**call_redirect_refer**](CallsinternalApi.md#call_redirect_refer) | **POST** /call/{callId}/_redirect_refer | Redirect call by refer (Complete attended transfer)
-[**call_status**](CallsinternalApi.md#call_status) | **GET** /call/{callId}/_status | Return the status of call
-[**call_stop_listen**](CallsinternalApi.md#call_stop_listen) | **POST** /call/_stopListen | Stop call listening
-[**call_transfer**](CallsinternalApi.md#call_transfer) | **POST** /call/{callId}/_transfer | Blind transfer call to a different number
-[**dtmf_channel**](CallsinternalApi.md#dtmf_channel) | **POST** /call/{callId}/channels/{channelId}/_dtmf | Send provided DTMF to channel
-[**end_channel**](CallsinternalApi.md#end_channel) | **POST** /call/{callId}/channels/{channelId}/_end | End channel
-[**get_recording**](CallsinternalApi.md#get_recording) | **GET** /call/{callId}/recordings/{recordingId} | Download a call recording file
-[**hold_channel**](CallsinternalApi.md#hold_channel) | **POST** /call/{callId}/channels/{channelId}/_hold | Hold channel
-[**mute_channel**](CallsinternalApi.md#mute_channel) | **POST** /call/{callId}/channels/{channelId}/_mute | Mute channel
-[**unhold_channel**](CallsinternalApi.md#unhold_channel) | **POST** /call/{callId}/channels/{channelId}/_unhold | Unhold channel
-[**unmute_channel**](CallsinternalApi.md#unmute_channel) | **POST** /call/{callId}/channels/{channelId}/_unmute | Unmute channel
+[**call_cancel_create**](CallsInternalApi.md#call_cancel_create) | **POST** /call/_cancelStart | Cancel outgoing call (before the agent initiated it on external device)
+[**call_create**](CallsInternalApi.md#call_create) | **POST** /call/_start | Originate new call
+[**call_listen**](CallsInternalApi.md#call_listen) | **POST** /call/_listen | Request call listening
+[**call_redirect**](CallsInternalApi.md#call_redirect) | **POST** /call/{callId}/_redirect | Redirect call (Complete attended transfer)
+[**call_redirect_refer**](CallsInternalApi.md#call_redirect_refer) | **POST** /call/{callId}/_redirect_refer | Redirect call by refer (Complete attended transfer)
+[**call_status**](CallsInternalApi.md#call_status) | **GET** /call/{callId}/_status | Return the status of call
+[**call_stop_listen**](CallsInternalApi.md#call_stop_listen) | **POST** /call/_stopListen | Stop call listening
+[**call_transfer**](CallsInternalApi.md#call_transfer) | **POST** /call/{callId}/_transfer | Blind transfer call to a different number
+[**dtmf_channel**](CallsInternalApi.md#dtmf_channel) | **POST** /call/{callId}/channels/{channelId}/_dtmf | Send provided DTMF to channel
+[**end_channel**](CallsInternalApi.md#end_channel) | **POST** /call/{callId}/channels/{channelId}/_end | End channel
+[**get_recording**](CallsInternalApi.md#get_recording) | **GET** /call/{callId}/recordings/{recordingId} | Download a call recording file
+[**hold_channel**](CallsInternalApi.md#hold_channel) | **POST** /call/{callId}/channels/{channelId}/_hold | Hold channel
+[**mute_channel**](CallsInternalApi.md#mute_channel) | **POST** /call/{callId}/channels/{channelId}/_mute | Mute channel
+[**unhold_channel**](CallsInternalApi.md#unhold_channel) | **POST** /call/{callId}/channels/{channelId}/_unhold | Unhold channel
+[**unmute_channel**](CallsInternalApi.md#unmute_channel) | **POST** /call/{callId}/channels/{channelId}/_unmute | Unmute channel
 
 
 # **call_cancel_create**
@@ -26,23 +26,24 @@ Method | HTTP request | Description
 
 Cancel outgoing call (before the agent initiated it on external device)
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 
-try: 
+try:
     # Cancel outgoing call (before the agent initiated it on external device)
     api_response = api_instance.call_cancel_create(call_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->call_cancel_create: %s\n" % e
+    print("Exception when calling CallsInternalApi->call_cancel_create: %s\n" % e)
 ```
 
 ### Parameters
@@ -71,15 +72,16 @@ No authorization required
 
 Originate new call
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 to_number = 'to_number_example' # str | callee number
 device_type = 'device_type_example' # str | A - LiveAgent phone app, S - SIP phone, E - Phone connected to PSTN, W - Web browser device, R - SIP provider extension
 device_number = 'device_number_example' # str | device number
@@ -89,12 +91,12 @@ trunk = 'trunk_example' # str | trunk id (optional)
 ticket_id = 'ticket_id_example' # str | ticket id or code (optional)
 device_trunk_id = 'device_trunk_id_example' # str | device trunk id (for dialing PSTN phone device) (optional)
 
-try: 
+try:
     # Originate new call
     api_response = api_instance.call_create(to_number, device_type, device_number, device_params, call_id, trunk=trunk, ticket_id=ticket_id, device_trunk_id=device_trunk_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->call_create: %s\n" % e
+    print("Exception when calling CallsInternalApi->call_create: %s\n" % e)
 ```
 
 ### Parameters
@@ -130,25 +132,26 @@ No authorization required
 
 Request call listening
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | Call ID to listen
 ticket_id = 'ticket_id_example' # str | Ticket Id
 by_number = 'by_number_example' # str | Number that will listen the call
 
-try: 
+try:
     # Request call listening
     api_response = api_instance.call_listen(call_id, ticket_id, by_number)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->call_listen: %s\n" % e
+    print("Exception when calling CallsInternalApi->call_listen: %s\n" % e)
 ```
 
 ### Parameters
@@ -179,25 +182,26 @@ No authorization required
 
 Redirect call (Complete attended transfer)
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 to_number = 'to_number_example' # str | to number
 first_channel_id = 'first_channel_id_example' # str | first channel ID
 
-try: 
+try:
     # Redirect call (Complete attended transfer)
     api_response = api_instance.call_redirect(call_id, to_number, first_channel_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->call_redirect: %s\n" % e
+    print("Exception when calling CallsInternalApi->call_redirect: %s\n" % e)
 ```
 
 ### Parameters
@@ -228,25 +232,26 @@ No authorization required
 
 Redirect call by refer (Complete attended transfer)
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 to_number = 'to_number_example' # str | to number
 first_channel_id = 'first_channel_id_example' # str | first channel ID
 
-try: 
+try:
     # Redirect call by refer (Complete attended transfer)
     api_response = api_instance.call_redirect_refer(call_id, to_number, first_channel_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->call_redirect_refer: %s\n" % e
+    print("Exception when calling CallsInternalApi->call_redirect_refer: %s\n" % e)
 ```
 
 ### Parameters
@@ -277,23 +282,24 @@ No authorization required
 
 Return the status of call
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 
-try: 
+try:
     # Return the status of call
     api_response = api_instance.call_status(call_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->call_status: %s\n" % e
+    print("Exception when calling CallsInternalApi->call_status: %s\n" % e)
 ```
 
 ### Parameters
@@ -322,24 +328,25 @@ No authorization required
 
 Stop call listening
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | Call ID to stop listening
 by_number = 'by_number_example' # str | Number that was listening the call
 
-try: 
+try:
     # Stop call listening
     api_response = api_instance.call_stop_listen(call_id, by_number)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->call_stop_listen: %s\n" % e
+    print("Exception when calling CallsInternalApi->call_stop_listen: %s\n" % e)
 ```
 
 ### Parameters
@@ -369,25 +376,26 @@ No authorization required
 
 Blind transfer call to a different number
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 channel_id = 'channel_id_example' # str | channel ID
 to_number = 'to_number_example' # str | transfer to number
 
-try: 
+try:
     # Blind transfer call to a different number
     api_response = api_instance.call_transfer(call_id, channel_id, to_number)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->call_transfer: %s\n" % e
+    print("Exception when calling CallsInternalApi->call_transfer: %s\n" % e)
 ```
 
 ### Parameters
@@ -418,25 +426,26 @@ No authorization required
 
 Send provided DTMF to channel
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 channel_id = 'channel_id_example' # str | 
 dtmf = 'dtmf_example' # str | DTMF To send
 
-try: 
+try:
     # Send provided DTMF to channel
     api_response = api_instance.dtmf_channel(call_id, channel_id, dtmf)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->dtmf_channel: %s\n" % e
+    print("Exception when calling CallsInternalApi->dtmf_channel: %s\n" % e)
 ```
 
 ### Parameters
@@ -467,24 +476,25 @@ No authorization required
 
 End channel
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 channel_id = 'channel_id_example' # str | 
 
-try: 
+try:
     # End channel
     api_response = api_instance.end_channel(call_id, channel_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->end_channel: %s\n" % e
+    print("Exception when calling CallsInternalApi->end_channel: %s\n" % e)
 ```
 
 ### Parameters
@@ -514,24 +524,25 @@ No authorization required
 
 Download a call recording file
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 recording_id = 'recording_id_example' # str | The recording id (the asterisk-la file handle)
 
-try: 
+try:
     # Download a call recording file
     api_response = api_instance.get_recording(call_id, recording_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->get_recording: %s\n" % e
+    print("Exception when calling CallsInternalApi->get_recording: %s\n" % e)
 ```
 
 ### Parameters
@@ -561,24 +572,25 @@ No authorization required
 
 Hold channel
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 channel_id = 'channel_id_example' # str | 
 
-try: 
+try:
     # Hold channel
     api_response = api_instance.hold_channel(call_id, channel_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->hold_channel: %s\n" % e
+    print("Exception when calling CallsInternalApi->hold_channel: %s\n" % e)
 ```
 
 ### Parameters
@@ -608,24 +620,25 @@ No authorization required
 
 Mute channel
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 channel_id = 'channel_id_example' # str | 
 
-try: 
+try:
     # Mute channel
     api_response = api_instance.mute_channel(call_id, channel_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->mute_channel: %s\n" % e
+    print("Exception when calling CallsInternalApi->mute_channel: %s\n" % e)
 ```
 
 ### Parameters
@@ -655,24 +668,25 @@ No authorization required
 
 Unhold channel
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 channel_id = 'channel_id_example' # str | 
 
-try: 
+try:
     # Unhold channel
     api_response = api_instance.unhold_channel(call_id, channel_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->unhold_channel: %s\n" % e
+    print("Exception when calling CallsInternalApi->unhold_channel: %s\n" % e)
 ```
 
 ### Parameters
@@ -702,24 +716,25 @@ No authorization required
 
 Unmute channel
 
-### Example 
+### Example
 ```python
+from __future__ import print_function
 import time
 import liveagent_calls_internal_api
 from liveagent_calls_internal_api.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = liveagent_calls_internal_api.CallsinternalApi()
+api_instance = liveagent_calls_internal_api.CallsInternalApi()
 call_id = 'call_id_example' # str | 
 channel_id = 'channel_id_example' # str | 
 
-try: 
+try:
     # Unmute channel
     api_response = api_instance.unmute_channel(call_id, channel_id)
     pprint(api_response)
 except ApiException as e:
-    print "Exception when calling CallsinternalApi->unmute_channel: %s\n" % e
+    print("Exception when calling CallsInternalApi->unmute_channel: %s\n" % e)
 ```
 
 ### Parameters
